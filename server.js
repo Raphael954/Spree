@@ -4,9 +4,7 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import path, { parse } from "path";
-import axios, { all } from "axios";
 import pg from "pg";
-import { ok } from "assert";
 
 const db = new pg.Client({
   user: "postgres",
@@ -657,5 +655,6 @@ passport.deserializeUser( async (username, done) => {
   const user = userData.rows[0];
   done(null, user);
 });
+
 
 app.listen(port, () => console.log(`Spree server running: http://localhost:${port}`));
