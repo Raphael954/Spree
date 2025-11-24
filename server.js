@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
-import path, { parse } from "path";
+import path from "path";
 import pg from "pg";
 
 const db = new pg.Client({
@@ -658,3 +658,4 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(port, () => console.log(`Spree server running: http://localhost:${port}`));
+
