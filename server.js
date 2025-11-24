@@ -4,7 +4,7 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import path, { parse } from "path";
-import axios from "axios";
+import axios, { all } from "axios";
 import pg from "pg";
 
 import dotenv from 'dotenv';
@@ -662,3 +662,4 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(port, () => console.log(`Spree server running: http://localhost:${port}`));
+
