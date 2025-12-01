@@ -579,7 +579,7 @@ app.post("/send-order", async (req, res) => {
 
     const totalPrice = checkoutItems.reduce((a, b) => a + b.subtotal, 0)
     let newUserBalance = parseFloat(userNames.balance) -  parseFloat(totalPrice)
-    await db.query("UPDATE users SET balance = $1 WHERE username = $2", [parseFloat(newUserBalance).toFixed(2), req.user.username])
+    await db.query("UPDATE users SET balance = $1 WHERE username = $2", [parseInt(newUserBalance), req.user.username])
     
     delete req.session.cart;
     res.redirect("/")
@@ -668,6 +668,7 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
 
