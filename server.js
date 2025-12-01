@@ -532,6 +532,7 @@ app.get("/checkout", async (req, res) => {
 });
 //Make Order
 app.post("/send-order", async (req, res) => {
+   if(req.isAuthenticated()){
   const checkoutItems = []
   const address = req.body.address;
   const all_users = await db.query("select * from users where username = $1", [req.user.username])
@@ -584,6 +585,7 @@ app.post("/send-order", async (req, res) => {
     delete req.session.cart;
     res.redirect("/")
 })
+}
 
 
 //Login/SignUp
@@ -666,6 +668,7 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
 
