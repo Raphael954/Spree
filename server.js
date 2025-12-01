@@ -584,8 +584,9 @@ app.post("/send-order", async (req, res) => {
     
     delete req.session.cart;
     res.redirect("/")
+  }
 })
-}
+
 
 
 //Login/SignUp
@@ -668,6 +669,7 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
 
