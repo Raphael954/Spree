@@ -571,7 +571,7 @@ app.post("/send-order", async (req, res) => {
         item.stock = parseInt(item.stock) - parseInt(item.quantity)
         item.sold = parseInt(item.sold) + parseInt(item.quantity)
 
-        await db.query("UPDATE product_list SET stock = $1, sold = $2 where product_id = $3", [item.stock, item.sold, item.product_id])
+        await db.query("UPDATE product_list SET stock = $1, sold = $2 where product_id = $3", [parseInt(item.stock), parseInt(item.sold), item.product_id])
     
     })
 
@@ -666,5 +666,6 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
