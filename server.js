@@ -16,6 +16,10 @@ const db = new pg.Client({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
+
+   ssl: {
+    rejectUnauthorized: false   // Render requires SSL but allows this
+  }
 });
 
 db.connect();
@@ -661,5 +665,6 @@ passport.deserializeUser( async (username, done) => {
 });
 
 
-app.listen(port, () => console.log(`Spree server running: http://localhost:${port}`));
+app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
