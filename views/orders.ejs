@@ -221,11 +221,11 @@
                     </div>
                     <div class="order-dates" style="display: none; font-weight: 700;">
                         <p>Quantity: <%= order.quantity %></p>
-                        <p>Order Date: <%= order.order_time.toISOString().split('T')[0] %></p>
+                        <p>Order Date: <%= order.order_time %></p>
                         <% if(order.arrival_time != null){ %>
-                            <p>Arrival Time: <%= order.arrival_time.toISOString().split('T')[0] %></p>
+                            <p>Arrival Time: <%= order.arrival_time %></p>
                         <% }else{ %>
-                            <p>Estimated Arrival Date: <%= order.estimated_arrivaltime.toISOString().split('T')[0] %></p>
+                            <p>Estimated Arrival Date: <%= order.estimated_arrivaltime %></p>
                         <% } %>
                     </div>
                 </div>
@@ -258,4 +258,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/app.js"></script>   
 </body>
+
 </html>
