@@ -567,7 +567,7 @@ app.post("/send-order", async (req, res) => {
     checkoutItems.forEach(async (item) => {
       
         const orderId = Math.floor(Math.random() * 9000 +1000)
-        await db.query("insert into delivery_list (product_id, buyer_name, product_name, product_price, delivery_location, delivery_status, quantity, delivery_stage, telephone, order_time, estimated_arrivaltime, total_price) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)", [parseInt(orderId), req.user.username, item.product_name, parseFloat(item.product_price).toFixed(2), address, 'Order Placed', parseInt(item.quantity), 1, item.telephone, orderTime, estimatedArrivalTime, item.subtotal.toFixed(2)])
+        await db.query("insert into delivery_list (product_id, buyer_name, product_name, product_price, delivery_location, delivery_status, quantity, delivery_stage, telephone, order_time, estimated_arrivaltime, total_price) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)", [parseInt(orderId), req.user.username, item.product_name, parseInt(item.product_price), address, 'Order Placed', parseInt(item.quantity), 1, item.telephone, orderTime, estimatedArrivalTime, item.subtotal.toFixed(2)])
         
         item.stock = parseInt(item.stock) - parseInt(item.quantity)
         item.sold = parseInt(item.sold) + parseInt(item.quantity)
@@ -669,6 +669,7 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
 
