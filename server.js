@@ -300,9 +300,9 @@ app.get('/admin/orders/all', async (req, res) => {
     `);
     let allOrders = allOrdersData.rows
     allOrders.forEach(orders => {
-      orders.order_time = new Date(orders.order_time - 1).toISOString().split('T')[0].toString()
-      orders.estimated_arrivaltime = new Date(orders.estimated_arrivaltime - 1) .toISOString().split('T')[0].toString()
-      orders.arrival_time = new Date(orders.arrival_time - 1).toISOString().split('T')[0].toString()
+      orders.order_time = new Date(orders.order_time - 1)
+      orders.estimated_arrivaltime = new Date(orders.estimated_arrivaltime - 1)
+      orders.arrival_time = new Date(orders.arrival_time - 1).toISOString()
     });
     
     res.json(allOrders);
@@ -336,9 +336,9 @@ app.get('/admin/orders/stage/:stage', async (req, res) => {
     }
     let allOrders = q.rows;
     allOrders.forEach(orders => {
-      orders.order_time = new Date(orders.order_time - 1).toISOString().split('T')[0].toString()
-      orders.estimated_arrivaltime = new Date(orders.estimated_arrivaltime - 1) .toISOString().split('T')[0].toString()
-      orders.arrival_time = new Date(orders.arrival_time - 1).toISOString().split('T')[0].toString()
+      orders.order_time = new Date(orders.order_time - 1)
+      orders.estimated_arrivaltime = new Date(orders.estimated_arrivaltime - 1)
+      orders.arrival_time = new Date(orders.arrival_time - 1)
     });
     res.json(allOrders);
   } catch (err) {
@@ -381,7 +381,7 @@ app.post('/admin/orders/update/:id/:stage', async (req, res) => {
       await db.query(
         `INSERT INTO sales_list (arrival_date, quantity, product_name, unit_cost, total_profit)
          VALUES ($1, $2, $3, $4, $5)`,
-        [today, orderData.quantity, orderData.product_name, orderData.product_price, orderData.total_price]
+        [today, parseInt(orderData.quantity), orderData.product_name, orderData.product_price, orderData.total_price]
       );
 
       return res.json({ message: 'Order marked delivered and inserted into sales_list' });
@@ -615,15 +615,11 @@ app.post("/signup", async (req, res)=> {
     password = password.replace("-admin","")
     const addUser = await db.query("INSERT INTO users (username, password, telephone,auth,balance) values ($1, $2, $3, $4, $5) RETURNING *", [userName,password,phoneNumber,'admin','7000'])
     const user = addUser.rows[0];
-    req.logIn({user}, (err) => {
-      res.redirect("/");
-    })
+      res.redirect("/login");
   }else{
     const addUser = await db.query("INSERT INTO users (username, password, telephone,auth,balance) values ($1, $2, $3, $4, $5) RETURNING *", [userName,password,phoneNumber,'user','7000']) 
     const user = addUser.rows[0];
-    req.logIn({user}, (err) => {
-      res.redirect("/");
-    })
+      res.redirect("/login");
   }
  
 }})
@@ -668,6 +664,7 @@ passport.deserializeUser( async (username, done) => {
 
 
 app.listen(process.env.PORT || port, () => console.log(`Spree server running: http://localhost:3000`));
+
 
 
 
