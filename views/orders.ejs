@@ -222,10 +222,10 @@
                     <div class="order-dates" style="display: none; font-weight: 700;">
                         <p>Quantity: <%= order.quantity %></p>
                         <p>Order Date: <%= order.order_time %></p>
-                        <% if(order.arrival_time != ""){ %>
-                            <p>Arrival Time: <%= order.arrival_time %></p>
-                        <% }else{ %>
+                        <% if(order.arrival_time == ""){ %>
                             <p>Estimated Arrival Date: <%= order.estimated_arrivaltime %></p>
+                        <% }else{ %>
+                            <p>Arrival Time: <%= order.arrival_time %></p>
                         <% } %>
                     </div>
                 </div>
@@ -260,4 +260,5 @@
 </body>
 
 </html>
+
 
